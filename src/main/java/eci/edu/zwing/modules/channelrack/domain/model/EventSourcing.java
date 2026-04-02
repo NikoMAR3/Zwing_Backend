@@ -11,6 +11,10 @@ public abstract class EventSourcing {
         return version;
     }
 
+    public List<DomainEvent> getUncommittedEvents() {
+        return uncommittedEvents;
+    }
+
     void raise(DomainEvent event){
         event.applyTo(this);
         uncommittedEvents.add(event);
