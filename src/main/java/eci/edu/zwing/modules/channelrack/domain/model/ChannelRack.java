@@ -1,7 +1,7 @@
-package eci.edu.zwing.modules.channelrack.model.domain;
+package eci.edu.zwing.modules.channelrack.domain.model;
 
 
-import eci.edu.zwing.modules.channelrack.model.domain.valueobjects.ChannelData;
+import eci.edu.zwing.modules.channelrack.domain.model.valueobjects.ChannelData;
 
 import java.util.List;
 
@@ -19,14 +19,18 @@ public class ChannelRack extends EventSourcing {
 
     public void addChannel(String channelId,ChannelData data, Long expectedVersion){
         checkVersion(expectedVersion);
-        raise(new DomainEvent.ChannelAdded(
-                channelRackId,
-                channelId,
-                data.name(),
-                data.sampleId(),
-                data.volume(),
-                data.mute()
-        ));
+        boolean exists = channels.stream()
+                .anyMatch(c -> c.getChannelId().equals(channelId));
+        if (!exists) {
+            raise(new DomainEvent.ChannelAdded(
+                    channelRackId,
+                    channelId,
+                    data.name(),
+                    data.sampleId(),
+                    data.volume(),
+                    data.mute()
+            ));
+        }
     }
 
     public void removeChannel(String channelId,Long expectedVersion){

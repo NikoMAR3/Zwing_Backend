@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.channelrack.model.domain;
+package eci.edu.zwing.modules.channelrack.domain.model;
 
 public class Step {
     private boolean active = false;
@@ -6,4 +6,8 @@ public class Step {
 
     public void activate(){active = true;}
     public void deactivate(){active = false;}
+
+    public boolean isActive() {
+        return active;
+    }
 }

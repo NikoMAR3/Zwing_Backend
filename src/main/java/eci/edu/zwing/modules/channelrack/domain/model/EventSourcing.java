@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.channelrack.model.domain;
+package eci.edu.zwing.modules.channelrack.domain.model;
 
 
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.List;
 public abstract class EventSourcing {
     protected Long version;
     protected List<DomainEvent> uncommittedEvents;
+
+    public Long getVersion() {
+        return version;
+    }
 
     void raise(DomainEvent event){
         event.applyTo(this);

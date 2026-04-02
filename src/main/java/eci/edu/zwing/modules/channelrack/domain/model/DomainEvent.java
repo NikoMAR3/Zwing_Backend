@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.channelrack.model.domain;
+package eci.edu.zwing.modules.channelrack.domain.model;
 
 public sealed interface DomainEvent {
 

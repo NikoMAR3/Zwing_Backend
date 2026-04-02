@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.channelrack.model.domain.valueobjects;
+package eci.edu.zwing.modules.channelrack.domain.model.valueobjects;
 
 public record ChannelData(
         String name,

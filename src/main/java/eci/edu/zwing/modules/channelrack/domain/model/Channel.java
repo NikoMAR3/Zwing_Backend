@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.channelrack.model.domain;
+package eci.edu.zwing.modules.channelrack.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Channel {
     private String channelId;
     private String name;
-    private static final Step[] steps = new Step[16];
+    private final Step[] steps = new Step[16];
     private String sampleId;
     private Float volume;
     private boolean mute;
@@ -20,4 +20,7 @@ public class Channel {
         steps[position].deactivate();
     }
 
+    public Step[] getSteps() {
+        return steps;
+    }
 }
