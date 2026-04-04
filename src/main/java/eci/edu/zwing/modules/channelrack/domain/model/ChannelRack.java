@@ -2,12 +2,23 @@ package eci.edu.zwing.modules.channelrack.domain.model;
 
 
 import eci.edu.zwing.modules.channelrack.domain.model.valueobjects.ChannelData;
+import lombok.AllArgsConstructor;
 
+import java.security.PublicKey;
 import java.util.List;
+
 
 public class ChannelRack extends EventSourcing {
     private String channelRackId;
     private List<Channel> channels;
+
+    public ChannelRack(String channelRackId, List<Channel> channels, Long version){
+        this.channelRackId = channelRackId;
+        this.channels = channels;
+        this.version = version;
+    }
+
+    public ChannelRack() {}
 
     public void checkVersion(long expectedVersion) {
         if (this.version != expectedVersion) {
@@ -82,7 +93,8 @@ public class ChannelRack extends EventSourcing {
            event.name(),
            event.sampleId(),
            event.volume(),
-           event.mute()
+           event.mute(),
+           event.steps()
         ));
         version++;
     }
@@ -108,4 +120,20 @@ public class ChannelRack extends EventSourcing {
                 .forEach(channel -> channel.deactivateStep(event.stepIndex()));
         version++;
     }
+
+    public static ChannelRack fromEvents(List<DomainEvent> events) {
+        ChannelRack rack = new ChannelRack();
+        events.forEach(rack::applyEvent);
+        return rack;
+    }
+
+    @Override
+    public Long getVersion() {
+        return super.getVersion();
+    }
+
+    public String getChannelRackId() {
+        return channelRackId;
+    }
+
 }

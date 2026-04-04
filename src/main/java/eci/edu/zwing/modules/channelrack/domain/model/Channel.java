@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Channel {
     private String channelId;
     private String name;
-    private final Step[] steps = new Step[16];
+    private Step[] steps = new Step[16];
     private String sampleId;
     private Float volume;
     private boolean mute;
