@@ -3,8 +3,9 @@ package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realt
 import java.util.Map;
 
 public class DeactivateStepHandler implements ChannelRackEventHandler {
+
     @Override
-    public void handle(String rackId, Map<String, Object> data) {
+    public void handle(String rackId, Map<String, Object> data, String correlationId) {
 
     }
 }

@@ -3,5 +3,5 @@ package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realt
 import java.util.Map;
 
 public interface ChannelRackEventHandler {
-    void handle(String rackId, Map<String, Object> data);
+    void handle(String rackId, Map<String, Object> data,String correlationId);
 }

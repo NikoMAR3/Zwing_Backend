@@ -64,7 +64,7 @@ public class ChannelRackRedisEventListener implements MessageListener {
         Map<String, Object> data = (Map<String, Object>) eventData.get("data");
 
         ChannelRackEventHandler channelRackEventHandler = ChannelRackHandlerRegistry.get((String) eventData.get("action"));
-        channelRackEventHandler.handle((String) data.get("rackId"), eventData);
+        channelRackEventHandler.handle((String) data.get("rackId"), eventData, (String) eventData.get("sessionId"));
 
     }
 
