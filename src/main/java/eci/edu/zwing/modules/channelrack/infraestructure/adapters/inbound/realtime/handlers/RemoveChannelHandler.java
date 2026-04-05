@@ -1,4 +1,10 @@
 package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realtime.handlers;
 
-public class RemoveChannelHandler {
+import java.util.Map;
+
+public class RemoveChannelHandler implements ChannelRackEventHandler {
+    @Override
+    public void handle(String rackId, Map<String, Object> data) {
+
+    }
 }
