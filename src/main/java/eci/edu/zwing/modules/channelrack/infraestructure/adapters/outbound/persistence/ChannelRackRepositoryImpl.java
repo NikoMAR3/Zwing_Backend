@@ -9,7 +9,7 @@ import eci.edu.zwing.modules.channelrack.domain.ports.outbound.OutboxStore;
 import eci.edu.zwing.modules.channelrack.domain.ports.outbound.SnapshotStore;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.eventbus.EventEnvelope;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.snapshots.Snapshot;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,8 +37,8 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
     public void save(ChannelRack rack, String correlationId) {
         List<DomainEvent> newEvents = rack.getUncommittedEvents();
 
-        String userId = SecurityContextHolder.getContext()
-                .getAuthentication().getName();
+        String userId = "1"; //SecurityContextHolder.getContext()
+                //.getAuthentication().getName();
 
         long version = rack.getVersion() - newEvents.size();
 
@@ -55,7 +55,7 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
                     event,
                     userId,
                     correlationId,
-                    Instant.now(),
+                    new java.sql.Timestamp(System.currentTimeMillis()),
                     Map.of()
             ));
         }

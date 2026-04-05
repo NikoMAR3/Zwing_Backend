@@ -14,6 +14,6 @@ public record EventEnvelope(
         DomainEvent payload,
         String userId,
         String correlationId,
-        Instant occurredOn,
+        java.sql.Timestamp occurredOn,
         Map<String, String> metadata  // extensible: IP, deviceId, etc.
 ) {}

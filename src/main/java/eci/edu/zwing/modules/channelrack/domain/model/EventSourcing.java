@@ -1,11 +1,12 @@
 package eci.edu.zwing.modules.channelrack.domain.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EventSourcing {
     protected Long version = 0L;
-    protected List<DomainEvent> uncommittedEvents;
+    protected List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
     public Long getVersion() {
         return version;
@@ -29,7 +30,7 @@ public abstract class EventSourcing {
     abstract void apply(DomainEvent.ChannelRemoved event);
     abstract void apply(DomainEvent.StepActivated event);
     abstract void apply(DomainEvent.StepDeactivated event);
-
+    abstract void apply(DomainEvent.ChannelRackCreated event);
     public void markEventsAsCommitted() {
         uncommittedEvents.clear();
     }

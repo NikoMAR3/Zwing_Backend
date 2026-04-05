@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 
 import java.security.PublicKey;
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class ChannelRack extends EventSourcing {
@@ -19,7 +21,11 @@ public class ChannelRack extends EventSourcing {
         this.version = version;
     }
 
-    public ChannelRack() {}
+    public ChannelRack() {
+        this.channelRackId = UUID.randomUUID().toString();
+        this.channels = new ArrayList<>();
+        this.version = 0L;
+    }
 
     public void checkVersion(long expectedVersion) {
         if (this.version != expectedVersion) {
@@ -27,6 +33,14 @@ public class ChannelRack extends EventSourcing {
                     "Version mismatch: expected " + expectedVersion + " but was " + this.version
             );
         }
+    }
+
+    public static ChannelRack create() {
+        ChannelRack rack = new ChannelRack();
+        rack.raise(
+                new DomainEvent.ChannelRackCreated(rack.getChannelRackId())
+        );
+        return rack;
     }
 
     public void addChannel(String channelId,ChannelData data, Long expectedVersion){
@@ -121,10 +135,10 @@ public class ChannelRack extends EventSourcing {
         version++;
     }
 
-    public static ChannelRack fromEvents(List<DomainEvent> events) {
-        ChannelRack rack = new ChannelRack();
-        events.forEach(rack::applyEvent);
-        return rack;
+    @Override
+    void apply(DomainEvent.ChannelRackCreated event) {
+        this.channelRackId = event.rackId();
+        version++;
     }
 
     @Override

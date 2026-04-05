@@ -28,20 +28,20 @@ public class PostgreSQLEventStore implements EventStore {
         String sql = """
             INSERT INTO events 
             (id, aggregate_id, version, event_type, payload, user_id, session_id, occurred_on, metadata, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+            VALUES (?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?::jsonb, NOW())
             """;
 
         for (EventEnvelope envelope : envelopes) {
             try {
                 jdbc.update(sql,
-                        envelope.eventId().toString(),
+                        envelope.eventId(),
                         envelope.rackId(),
                         envelope.version(),
                         envelope.eventType(),
                         mapper.writeValueAsString(envelope.payload()),
                         envelope.userId(),
                         envelope.correlationId(),
-                        java.sql.Timestamp.from(envelope.occurredOn()),
+                        envelope.occurredOn(),
                         mapper.writeValueAsString(envelope.metadata())
                 );
             } catch (Exception e) {
@@ -96,7 +96,7 @@ public class PostgreSQLEventStore implements EventStore {
                 mapper.readValue(rs.getString("payload"), DomainEvent.class),
                 rs.getString("user_id"),
                 rs.getString("session_id"),
-                rs.getTimestamp("occurred_on").toInstant(),
+                rs.getTimestamp("occurred_on"),
                 mapper.readValue(rs.getString("metadata"), java.util.Map.class)
         );
     }
