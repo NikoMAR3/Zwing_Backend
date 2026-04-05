@@ -22,13 +22,13 @@ public class Session {
     private final Map<String, Object> metadata;
 
     private Session(SessionId id, ToolId toolId, String userId,
-                    LocalDateTime createdAt, SessionStatus status,
-                    Map<String, Object> metadata) {
+                    LocalDateTime createdAt, LocalDateTime lastActivityAt, // ← agregar
+                    SessionStatus status, Map<String, Object> metadata) {
         this.id = Objects.requireNonNull(id);
         this.toolId = Objects.requireNonNull(toolId);
         this.userId = Objects.requireNonNull(userId);
         this.createdAt = Objects.requireNonNull(createdAt);
-        this.lastActivityAt = createdAt;
+        this.lastActivityAt = Objects.requireNonNull(lastActivityAt); // ← usar el parámetro
         this.status = Objects.requireNonNull(status);
         this.metadata = metadata != null ? new HashMap<>(metadata) : new HashMap<>();
     }
@@ -39,10 +39,17 @@ public class Session {
                 toolId,
                 userId,
                 LocalDateTime.now(),
+                LocalDateTime.now(),
                 SessionStatus.ACTIVE,
                 metadata
         );
     }
+    public static Session fromPersistence(SessionId id, ToolId toolId, String userId,
+                                          LocalDateTime createdAt, LocalDateTime lastActivityAt,
+                                          SessionStatus status, Map<String, Object> metadata) {
+        return new Session(id, toolId, userId, createdAt, lastActivityAt, status, metadata);
+    }
+
 
     public void recordActivity() {
         this.lastActivityAt = LocalDateTime.now();
