@@ -4,9 +4,11 @@ import eci.edu.zwing.modules.channelrack.application.dtos.commands.ChannelRackCo
 import eci.edu.zwing.modules.channelrack.application.mappers.ChannelRackCommandMapper;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.ActivateStepUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class ActivateStepHandler implements ChannelRackEventHandler{
 
     @Autowired

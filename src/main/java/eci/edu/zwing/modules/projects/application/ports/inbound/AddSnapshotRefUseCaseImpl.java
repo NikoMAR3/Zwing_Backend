@@ -2,7 +2,9 @@ package eci.edu.zwing.modules.projects.application.ports.inbound;
 
 import eci.edu.zwing.modules.projects.application.ports.dtos.CommandDTOs;
 import eci.edu.zwing.modules.projects.domain.ports.inbound.AddSnapshotRefUseCase;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AddSnapshotRefUseCaseImpl implements AddSnapshotRefUseCase {
 
     @Override

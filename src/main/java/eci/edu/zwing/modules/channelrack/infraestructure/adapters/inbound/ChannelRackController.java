@@ -1,10 +1,8 @@
 package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound;
 
-import eci.edu.zwing.modules.channelrack.application.dtos.commands.ChannelRackCommand;
 import eci.edu.zwing.modules.channelrack.application.dtos.queries.ChannelRackQuery;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

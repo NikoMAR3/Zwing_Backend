@@ -1,8 +1,8 @@
-package eci.edu.zwing.modules.sessions.infrastructure;
+package eci.edu.zwing.modules.sessions.infrastructure.realtime;
 
 import eci.edu.zwing.modules.sessions.domain.RealtimeEvent;
-import eci.edu.zwing.modules.sessions.application.ports.RealtimeCommandDispatcher;
-import eci.edu.zwing.modules.sessions.application.ports.RealtimeEventPublisher;
+import eci.edu.zwing.modules.sessions.application.ports.outbound.RealtimeCommandDispatcher;
+import eci.edu.zwing.modules.sessions.application.ports.outbound.RealtimeEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

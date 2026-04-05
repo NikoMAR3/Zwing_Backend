@@ -13,7 +13,7 @@ public record EventEnvelope(
         String eventType,
         DomainEvent payload,
         String userId,
-        String sessionId,
+        String correlationId,
         Instant occurredOn,
         Map<String, String> metadata  // extensible: IP, deviceId, etc.
 ) {}

@@ -5,7 +5,9 @@ import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.model.valueobjects.ChannelData;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.AddChannelUseCase;
 import eci.edu.zwing.modules.channelrack.domain.ports.outbound.ChannelRackRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AddChannelUseCaseImpl implements AddChannelUseCase {
 
     private final ChannelRackRepository repository;

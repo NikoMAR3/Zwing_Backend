@@ -7,6 +7,7 @@ import eci.edu.zwing.modules.projects.application.ports.dtos.CommandDTOs.RemoveP
 import eci.edu.zwing.modules.projects.domain.model.Project;
 import eci.edu.zwing.modules.projects.domain.ports.inbound.*;
 import eci.edu.zwing.modules.projects.infraestructure.inbound.dtos.ProjectRequestDTOs;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class ProjectController {
     private final GetAllProjectsOfUserUseCase getAllProjectsOfUserUseCase;
     private final RemoveProjectUseCase removeProjectUseCase;
 
+    @Autowired
     public ProjectController(
             CreateProjectUseCase createProjectUseCase,
             AddProjectMemberUseCase addProjectMemberUseCase,

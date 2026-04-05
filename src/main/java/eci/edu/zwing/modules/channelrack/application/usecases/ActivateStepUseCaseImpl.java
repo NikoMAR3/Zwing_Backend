@@ -4,7 +4,9 @@ import eci.edu.zwing.modules.channelrack.application.dtos.commands.ChannelRackCo
 import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.ActivateStepUseCase;
 import eci.edu.zwing.modules.channelrack.domain.ports.outbound.ChannelRackRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ActivateStepUseCaseImpl implements ActivateStepUseCase {
 
     private final ChannelRackRepository repository;
@@ -17,6 +19,6 @@ public class ActivateStepUseCaseImpl implements ActivateStepUseCase {
     public void execute(ChannelRackCommand.ActivateStep activateStepCommand) {
         ChannelRack rack = repository.load(activateStepCommand.channelId());
         rack.activateStep(activateStepCommand.channelId(), activateStepCommand.stepIndex(),activateStepCommand.expectedVersion());
-        repository.save(rack);
+        repository.save(rack, activateStepCommand.correlationId());
     }
 }

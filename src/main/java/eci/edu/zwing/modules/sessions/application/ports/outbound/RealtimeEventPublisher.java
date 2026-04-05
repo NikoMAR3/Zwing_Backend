@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.application.ports;
+package eci.edu.zwing.modules.sessions.application.ports.outbound;
 
 import eci.edu.zwing.modules.sessions.domain.RealtimeEvent;
 

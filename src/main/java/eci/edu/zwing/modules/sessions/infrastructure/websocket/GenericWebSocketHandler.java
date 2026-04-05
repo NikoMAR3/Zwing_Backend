@@ -1,8 +1,8 @@
 package eci.edu.zwing.modules.sessions.infrastructure.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eci.edu.zwing.modules.sessions.application.ports.RealtimeCommandDispatcher;
-import eci.edu.zwing.modules.sessions.infrastructure.RealtimeCommand;
+import eci.edu.zwing.modules.sessions.application.ports.outbound.RealtimeCommandDispatcher;
+import eci.edu.zwing.modules.sessions.infrastructure.realtime.RealtimeCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;

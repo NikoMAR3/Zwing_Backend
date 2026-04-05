@@ -12,8 +12,7 @@ import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.snaps
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -26,26 +25,20 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
 
     private final EventStore eventStore;
     private final SnapshotStore snapshotStore;
-    private final OutboxStore outboxStore;
-    private final SecurityContextHolder security; // o un puerto tuyo
+    private final OutboxStore outboxStore;// o un puerto tuyo
 
-    public ChannelRackRepositoryImpl(EventStore eventStore, SnapshotStore snapshotStore, OutboxStore outboxStore, SecurityContextHolder security) {
+    public ChannelRackRepositoryImpl(EventStore eventStore, SnapshotStore snapshotStore, OutboxStore outboxStore) {
         this.eventStore = eventStore;
         this.snapshotStore = snapshotStore;
         this.outboxStore = outboxStore;
-        this.security = security;
     }
 
     @Transactional
-    public void save(ChannelRack rack) {
+    public void save(ChannelRack rack, String correlationId) {
         List<DomainEvent> newEvents = rack.getUncommittedEvents();
 
         String userId = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
-
-        ServletRequestAttributes attrs = (ServletRequestAttributes)
-                RequestContextHolder.getRequestAttributes();
-        String sessionId = attrs.getRequest().getHeader("X-Session-Id");
 
         long version = rack.getVersion() - newEvents.size();
 
@@ -61,7 +54,7 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
                     event.getClass().getSimpleName(),
                     event,
                     userId,
-                    sessionId,
+                    correlationId,
                     Instant.now(),
                     Map.of()
             ));

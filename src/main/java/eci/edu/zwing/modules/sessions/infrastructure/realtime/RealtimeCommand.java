@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.infrastructure;
+package eci.edu.zwing.modules.sessions.infrastructure.realtime;
 
 public record RealtimeCommand(
         String entityType,

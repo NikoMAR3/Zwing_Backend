@@ -40,7 +40,7 @@ public class PostgreSQLEventStore implements EventStore {
                         envelope.eventType(),
                         mapper.writeValueAsString(envelope.payload()),
                         envelope.userId(),
-                        envelope.sessionId(),
+                        envelope.correlationId(),
                         java.sql.Timestamp.from(envelope.occurredOn()),
                         mapper.writeValueAsString(envelope.metadata())
                 );

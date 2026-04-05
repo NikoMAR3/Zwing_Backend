@@ -13,6 +13,14 @@ public class Channel {
     private Float volume;
     private boolean mute;
 
+    public Channel(String channelId,String name, String sampleId,Float volume, boolean mute){
+        this.channelId = channelId;
+        this.name = name;
+        this.sampleId = sampleId;
+        this.volume = volume;
+        this.mute = mute;
+    }
+
     void activateStep(int position){
         steps[position].activate();
     }

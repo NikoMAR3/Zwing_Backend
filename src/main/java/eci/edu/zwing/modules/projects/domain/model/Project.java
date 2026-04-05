@@ -9,7 +9,6 @@ public class Project {
     public String name;
     public List<ProjectMember> members;
     public List<ToolRef> tools;
-    public List<Event> events;
 
     public void addProjectMember(ProjectMember member) {
     }

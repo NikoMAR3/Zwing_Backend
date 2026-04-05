@@ -4,7 +4,9 @@ import eci.edu.zwing.modules.channelrack.application.dtos.commands.ChannelRackCo
 import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.RemoveChannelUseCase;
 import eci.edu.zwing.modules.channelrack.domain.ports.outbound.ChannelRackRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RemoveChannelUseCaseImpl implements RemoveChannelUseCase {
 
     private final ChannelRackRepository repository;
@@ -17,6 +19,6 @@ public class RemoveChannelUseCaseImpl implements RemoveChannelUseCase {
     public void execute(ChannelRackCommand.RemoveChannel removeChannelCommand) {
         ChannelRack  rack = repository.load(removeChannelCommand.rackId());
         rack.removeChannel(removeChannelCommand.channelId(), removeChannelCommand.expectedVersion());
-        repository.save(rack);
+        repository.save(rack, removeChannelCommand.correlationId());
     }
 }

@@ -5,6 +5,7 @@ import eci.edu.zwing.modules.channelrack.domain.model.valueobjects.ChannelData;
 import lombok.AllArgsConstructor;
 
 import java.security.PublicKey;
+import java.sql.Array;
 import java.util.List;
 
 
@@ -93,8 +94,7 @@ public class ChannelRack extends EventSourcing {
            event.name(),
            event.sampleId(),
            event.volume(),
-           event.mute(),
-           event.steps()
+           event.mute()
         ));
         version++;
     }

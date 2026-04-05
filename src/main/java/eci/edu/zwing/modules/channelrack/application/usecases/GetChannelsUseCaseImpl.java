@@ -6,9 +6,11 @@ import eci.edu.zwing.modules.channelrack.application.mappers.ChannelMapper;
 import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.GetChannelsUseCase;
 import eci.edu.zwing.modules.channelrack.domain.ports.outbound.ChannelRackRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+@Service
 public class GetChannelsUseCaseImpl implements GetChannelsUseCase {
 
     private final ChannelRackRepository repository;
