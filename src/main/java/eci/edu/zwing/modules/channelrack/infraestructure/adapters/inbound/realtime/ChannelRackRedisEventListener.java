@@ -5,6 +5,7 @@ import eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realti
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realtime.handlers.ChannelRackHandlerRegistry;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class ChannelRackRedisEventListener implements MessageListener {
 
     @Autowired
+    @Qualifier("channelRackRedisContainer")
     private RedisMessageListenerContainer container;
 
     @Autowired
@@ -64,7 +66,7 @@ public class ChannelRackRedisEventListener implements MessageListener {
         Map<String, Object> data = (Map<String, Object>) eventData.get("data");
 
         ChannelRackEventHandler channelRackEventHandler = ChannelRackHandlerRegistry.get((String) eventData.get("action"));
-        channelRackEventHandler.handle((String) data.get("rackId"), eventData, (String) eventData.get("sessionId"));
+        channelRackEventHandler.handle((String) data.get("rackId"), data, (String) eventData.get("sessionId"));
 
     }
 

@@ -73,7 +73,7 @@ public class PostgreSQLEventStore implements EventStore {
         String sql = """
             SELECT id, aggregate_id, version, event_type, payload, user_id, session_id, occurred_on, metadata
             FROM events
-            WHERE aggregate_id = ? AND version > ?
+            WHERE aggregate_id = ? AND version >= ?
             ORDER BY version ASC
             """;
 

@@ -17,7 +17,7 @@ public class DeactivateStepUseCaseImpl implements DeactivateStepUseCase {
 
     @Override
     public void execute(ChannelRackCommand.DeactivateStep deactivateStepCommand) {
-        ChannelRack rack = repository.load(deactivateStepCommand.channelId());
+        ChannelRack rack = repository.load(deactivateStepCommand.rackId());
         rack.deactivateStep(deactivateStepCommand.channelId(), deactivateStepCommand.stepIndex(),deactivateStepCommand.expectedVersion());
         repository.save(rack,deactivateStepCommand.correlationId());
     }

@@ -17,7 +17,7 @@ public class ActivateStepUseCaseImpl implements ActivateStepUseCase {
 
     @Override
     public void execute(ChannelRackCommand.ActivateStep activateStepCommand) {
-        ChannelRack rack = repository.load(activateStepCommand.channelId());
+        ChannelRack rack = repository.load(activateStepCommand.rackId());
         rack.activateStep(activateStepCommand.channelId(), activateStepCommand.stepIndex(),activateStepCommand.expectedVersion());
         repository.save(rack, activateStepCommand.correlationId());
     }

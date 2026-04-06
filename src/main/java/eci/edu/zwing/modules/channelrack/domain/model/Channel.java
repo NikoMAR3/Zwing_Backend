@@ -19,6 +19,15 @@ public class Channel {
         this.sampleId = sampleId;
         this.volume = volume;
         this.mute = mute;
+        this.steps = initializeSteps();
+    }
+
+    private static Step[] initializeSteps() {
+        Step[] steps = new Step[16];
+        for (int i = 0; i < 16; i++) {
+            steps[i] = new Step();
+        }
+        return steps;
     }
 
     void activateStep(int position){

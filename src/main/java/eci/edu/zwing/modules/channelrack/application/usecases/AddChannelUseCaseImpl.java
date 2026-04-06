@@ -29,5 +29,6 @@ public class AddChannelUseCaseImpl implements AddChannelUseCase {
                 ),
                 addChannelCommand.expectedVersion()
         );
+        repository.save(rack,null);
     }
 }

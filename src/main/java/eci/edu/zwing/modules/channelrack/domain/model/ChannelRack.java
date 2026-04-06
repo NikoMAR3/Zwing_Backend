@@ -110,13 +110,11 @@ public class ChannelRack extends EventSourcing {
            event.volume(),
            event.mute()
         ));
-        version++;
     }
 
     @Override
     void apply(DomainEvent.ChannelRemoved event) {
         channels.removeIf(channel -> channel.getChannelId().equals(event.channelId()));
-        version++;
     }
 
     @Override
@@ -124,7 +122,6 @@ public class ChannelRack extends EventSourcing {
         channels.stream()
                 .filter(channel -> channel.getChannelId().equals(event.channelId()))
                 .forEach(channel -> channel.activateStep(event.stepIndex()));
-        version++;
     }
 
     @Override
@@ -132,13 +129,11 @@ public class ChannelRack extends EventSourcing {
         channels.stream()
                 .filter(channel -> channel.getChannelId().equals(event.channelId()))
                 .forEach(channel -> channel.deactivateStep(event.stepIndex()));
-        version++;
     }
 
     @Override
     void apply(DomainEvent.ChannelRackCreated event) {
         this.channelRackId = event.rackId();
-        version++;
     }
 
     @Override
