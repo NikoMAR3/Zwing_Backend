@@ -3,6 +3,7 @@ package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realt
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realtime.handlers.ChannelRackEventHandler;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound.realtime.handlers.ChannelRackHandlerRegistry;
+import eci.edu.zwing.modules.channelrack.infraestructure.adapters.shared.UserIdProvider;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,6 +43,9 @@ public class ChannelRackRedisEventListener implements MessageListener {
     @Autowired
     private ChannelRackHandlerRegistry ChannelRackHandlerRegistry;
 
+    @Autowired
+    private UserIdProvider userIdProvider;
+
     private static final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -65,9 +69,12 @@ public class ChannelRackRedisEventListener implements MessageListener {
 
         Map<String, Object> data = (Map<String, Object>) eventData.get("data");
 
+        userIdProvider.setCurrentUserId((String) eventData.get("userId"));
+
         ChannelRackEventHandler channelRackEventHandler = ChannelRackHandlerRegistry.get((String) eventData.get("action"));
         channelRackEventHandler.handle((String) data.get("rackId"), data, (String) eventData.get("sessionId"));
 
+        userIdProvider.clearCurrentUserId();
     }
 
 }

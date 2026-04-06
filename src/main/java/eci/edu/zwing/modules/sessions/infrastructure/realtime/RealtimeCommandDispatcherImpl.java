@@ -19,7 +19,8 @@ public class RealtimeCommandDispatcherImpl implements RealtimeCommandDispatcher 
                 command.entityType(),
                 sessionId,
                 command.action(),
-                command.data()
+                command.data(),
+                command.userId()
         );
         eventPublisher.publishEvent(event);
     }

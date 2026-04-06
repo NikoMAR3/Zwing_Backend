@@ -12,14 +12,20 @@ public class RealtimeEvent extends ApplicationEvent {
     private final String sessionId;
     private final String action;
     private final Map<String, Object> data;
+    private final String userId;
 
     public RealtimeEvent(Object source, String entityType, String sessionId,
-                         String action, Map<String, Object> data) {
+                         String action, Map<String, Object> data, String userId) {
         super(source);
         this.entityType = entityType;
         this.sessionId = sessionId;
         this.action = action;
         this.data = data;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getEntityType() { return entityType; }

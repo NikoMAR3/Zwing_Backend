@@ -27,8 +27,9 @@ public class RealtimeEventPublisherImpl implements RealtimeEventPublisher {
                         "sessionId", event.getSessionId(),
                         "action", event.getAction(),
                         "data", event.getData(),
-                        "timestamp", System.currentTimeMillis()
-                )
+                        "timestamp", System.currentTimeMillis(),
+                        "userId", event.getUserId()
+                        )
         );
         redisTemplate.convertAndSend(channel, payload);
         System.out.println("📤 Evento publicado en Redis: " + channel);
