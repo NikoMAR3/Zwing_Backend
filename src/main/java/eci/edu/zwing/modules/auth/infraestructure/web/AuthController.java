@@ -1,11 +1,12 @@
 package eci.edu.zwing.modules.auth.infraestructure.web;
 
+import eci.edu.zwing.modules.auth.application.port.in.AuthenticateWithGoogleUseCase;
+import eci.edu.zwing.modules.auth.application.port.in.LogoutUseCase;
+import eci.edu.zwing.modules.auth.infraestructure.web.dto.request.GoogleAuthRequest;
+import eci.edu.zwing.modules.auth.infraestructure.web.dto.response.AuthResponse;
+import eci.edu.zwing.modules.sound.infrastructure.web.dto.GeneralResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import org.eci.ZwingBackend.auth.application.port.in.AuthenticateWithGoogleUseCase;
-import org.eci.ZwingBackend.auth.application.port.in.LogoutUseCase;
-import org.eci.ZwingBackend.auth.infraestructure.web.dto.request.GoogleAuthRequest;
-import org.eci.ZwingBackend.auth.infraestructure.web.dto.response.AuthResponse;
-import org.eci.ZwingBackend.shared.dto.GeneralResponse;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;

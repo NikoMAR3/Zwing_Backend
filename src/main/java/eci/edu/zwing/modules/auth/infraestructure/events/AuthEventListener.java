@@ -1,8 +1,9 @@
 package eci.edu.zwing.modules.auth.infraestructure.events;
 
+import eci.edu.zwing.modules.auth.UserDeletedEvent;
+import eci.edu.zwing.modules.auth.infraestructure.security.config.TokenBlacklistService;
 import lombok.AllArgsConstructor;
-import org.eci.ZwingBackend.auth.infraestructure.security.config.TokenBlacklistService;
-import org.eci.ZwingBackend.shared.events.UserDeletedEvent;
+
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 

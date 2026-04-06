@@ -1,17 +1,19 @@
 package eci.edu.zwing.modules.auth.application.service;
 
-import org.eci.ZwingBackend.auth.application.port.in.AuthenticateWithGoogleUseCase;
-import org.eci.ZwingBackend.auth.application.port.in.LogoutUseCase;
-import org.eci.ZwingBackend.auth.application.port.in.UserDeleteCase;
-import org.eci.ZwingBackend.auth.application.port.out.GoogleAuthPort;
-import org.eci.ZwingBackend.auth.application.port.out.TokenBlacklistPort;
-import org.eci.ZwingBackend.auth.application.port.out.TokenGeneratorPort;
-import org.eci.ZwingBackend.auth.application.port.out.UserRepositoryAuthOutPort;
-import org.eci.ZwingBackend.auth.domain.model.GoogleUserData;
-import org.eci.ZwingBackend.auth.domain.model.User;
-import org.eci.ZwingBackend.auth.infraestructure.web.dto.response.AuthResponse;
+
+import eci.edu.zwing.modules.auth.UserDeletedEvent;
+import eci.edu.zwing.modules.auth.application.port.in.AuthenticateWithGoogleUseCase;
+import eci.edu.zwing.modules.auth.application.port.in.LogoutUseCase;
+import eci.edu.zwing.modules.auth.application.port.in.UserDeleteCase;
+import eci.edu.zwing.modules.auth.application.port.out.GoogleAuthPort;
+import eci.edu.zwing.modules.auth.application.port.out.TokenBlacklistPort;
+import eci.edu.zwing.modules.auth.application.port.out.TokenGeneratorPort;
+import eci.edu.zwing.modules.auth.application.port.out.UserRepositoryAuthOutPort;
+import eci.edu.zwing.modules.auth.domain.model.GoogleUserData;
+import eci.edu.zwing.modules.auth.domain.model.User;
+import eci.edu.zwing.modules.auth.infraestructure.web.dto.response.AuthResponse;
 import lombok.AllArgsConstructor;
-import org.eci.ZwingBackend.shared.events.UserDeletedEvent;
+
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

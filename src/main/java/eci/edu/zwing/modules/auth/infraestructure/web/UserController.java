@@ -1,10 +1,11 @@
 package eci.edu.zwing.modules.auth.infraestructure.web;
 
-import org.eci.ZwingBackend.auth.application.port.in.UserDeleteCase;
-import org.eci.ZwingBackend.auth.application.port.out.UserRepositoryAuthOutPort;
-import org.eci.ZwingBackend.auth.domain.model.User;
-import org.eci.ZwingBackend.shared.dto.GeneralResponse;
-import org.eci.ZwingBackend.auth.infraestructure.web.dto.response.UserResponse;
+
+import eci.edu.zwing.modules.auth.application.port.in.UserDeleteCase;
+import eci.edu.zwing.modules.auth.application.port.out.UserRepositoryAuthOutPort;
+import eci.edu.zwing.modules.auth.domain.model.User;
+import eci.edu.zwing.modules.auth.infraestructure.web.dto.response.UserResponse;
+import eci.edu.zwing.modules.sound.infrastructure.web.dto.GeneralResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

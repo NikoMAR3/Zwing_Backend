@@ -1,6 +1,10 @@
 package eci.edu.zwing.modules.auth.infraestructure.adapters.out;
 
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import eci.edu.zwing.modules.auth.application.port.out.GoogleAuthPort;
 import eci.edu.zwing.modules.auth.domain.model.GoogleUserData;
 import org.springframework.beans.factory.annotation.Value;

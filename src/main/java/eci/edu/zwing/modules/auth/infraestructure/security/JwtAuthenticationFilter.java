@@ -1,5 +1,6 @@
 package eci.edu.zwing.modules.auth.infraestructure.security;
 
+import eci.edu.zwing.modules.auth.infraestructure.security.config.TokenBlacklistService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -9,7 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
-import org.eci.ZwingBackend.auth.infraestructure.security.config.TokenBlacklistService;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,7 +1,7 @@
 package eci.edu.zwing.modules.auth.infraestructure.security.config;
 
+import eci.edu.zwing.modules.auth.application.port.out.TokenBlacklistPort;
 import lombok.AllArgsConstructor;
-import org.eci.ZwingBackend.auth.application.port.out.TokenBlacklistPort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

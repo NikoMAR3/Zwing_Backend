@@ -1,7 +1,8 @@
 package eci.edu.zwing.modules.auth.infraestructure.persistence.repository.mapper;
 
-import org.eci.ZwingBackend.auth.domain.model.User;
-import org.eci.ZwingBackend.auth.infraestructure.persistence.entity.UserEntity;
+
+import eci.edu.zwing.modules.auth.domain.model.User;
+import eci.edu.zwing.modules.auth.infraestructure.persistence.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component

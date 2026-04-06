@@ -3,6 +3,8 @@ package eci.edu.zwing.modules.auth.infraestructure.adapters.out;
 
 import eci.edu.zwing.modules.auth.application.port.out.TokenGeneratorPort;
 import eci.edu.zwing.modules.auth.domain.model.User;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
