@@ -30,9 +30,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // Allow login/logout
-                        .requestMatchers("/ws/**").permitAll()
-                        .anyRequest().authenticated()            // Protect everything else
+                                .anyRequest().permitAll()
+//                        .requestMatchers("/auth/**").permitAll() // Allow login/logout
+//                        .requestMatchers("/ws", "/ws/**").permitAll()
+//                        .requestMatchers("/app/**").permitAll() //borrar
+//                        .anyRequest().authenticated()            // Protect everything else
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

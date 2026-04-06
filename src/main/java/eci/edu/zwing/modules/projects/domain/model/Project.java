@@ -10,7 +10,8 @@ public class Project {
     public List<ProjectMember> members;
     public List<ToolRef> tools;
 
-    public void addProjectMember(ProjectMember member) {
+    public Project addProjectMember(ProjectMember member) {
+        return this;
     }
 
     public void addToolRef(ToolRef toolRef) {
