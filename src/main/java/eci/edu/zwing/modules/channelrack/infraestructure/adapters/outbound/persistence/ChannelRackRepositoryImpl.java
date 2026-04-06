@@ -10,6 +10,7 @@ import eci.edu.zwing.modules.channelrack.domain.ports.outbound.SnapshotStore;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.eventbus.EventEnvelope;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.snapshots.Snapshot;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import eci.edu.zwing.modules.channelrack.infraestructure.adapters.shared.UserIdProvider;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,19 +27,20 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
     private final EventStore eventStore;
     private final SnapshotStore snapshotStore;
     private final OutboxStore outboxStore;// o un puerto tuyo
+    private final UserIdProvider userIdProvider;
 
-    public ChannelRackRepositoryImpl(EventStore eventStore, SnapshotStore snapshotStore, OutboxStore outboxStore) {
+    public ChannelRackRepositoryImpl(EventStore eventStore, SnapshotStore snapshotStore, OutboxStore outboxStore, UserIdProvider userIdProvider) {
         this.eventStore = eventStore;
         this.snapshotStore = snapshotStore;
         this.outboxStore = outboxStore;
+        this.userIdProvider = userIdProvider;
     }
 
     @Transactional
     public void save(ChannelRack rack, String correlationId) {
         List<DomainEvent> newEvents = rack.getUncommittedEvents();
 
-        String userId = "1"; //SecurityContextHolder.getContext()
-                //.getAuthentication().getName();
+        String userId = userIdProvider.getCurrentUserId();
 
         long version = rack.getVersion() - newEvents.size();
 
