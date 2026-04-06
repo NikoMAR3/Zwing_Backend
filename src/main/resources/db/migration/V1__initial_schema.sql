@@ -1,5 +1,5 @@
 -- Tabla para eventos
-CREATE TABLE IF NOT EXISTS events (
+CREATE TABLE events (
     id UUID PRIMARY KEY,
     aggregate_id VARCHAR(255) NOT NULL,
     version BIGINT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS events (
 );
 
 -- Tabla para outbox (publicación de eventos)
-CREATE TABLE IF NOT EXISTS outbox_events (
+CREATE TABLE outbox_events (
     id UUID PRIMARY KEY,
     aggregate_id VARCHAR(255) NOT NULL,
     event_type VARCHAR(255) NOT NULL,
@@ -26,15 +26,14 @@ CREATE TABLE IF NOT EXISTS outbox_events (
 );
 
 -- Tabla para snapshots
-CREATE TABLE IF NOT EXISTS snapshots (
+CREATE TABLE snapshots (
     channel_rack_id VARCHAR(255) PRIMARY KEY,
     version BIGINT NOT NULL,
     snapshot_data JSONB NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
-
--- Migration para crear la tabla de sesiones en PostgreSQL
+-- Tabla de sesiones
 CREATE TABLE sessions (
     id VARCHAR(36) PRIMARY KEY,
     tool_id VARCHAR(255) NOT NULL,
@@ -43,18 +42,40 @@ CREATE TABLE sessions (
     last_activity_at TIMESTAMP NOT NULL,
     status VARCHAR(20) NOT NULL CHECK (status IN ('ACTIVE', 'PAUSED', 'CLOSED', 'EXPIRED')),
     metadata JSONB DEFAULT '{}',
-    created_at_db TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+-- Tabla para Sound Presets
+CREATE TABLE sound_presets (
+    sound_id UUID PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    blob_url VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
--- Índices para optimizar consultas
+-- Índices para eventos
+CREATE INDEX idx_events_aggregate_id ON events(aggregate_id);
+CREATE INDEX idx_events_aggregate_version ON events(aggregate_id, version);
+CREATE INDEX idx_events_occurred_on ON events(occurred_on);
+
+-- Índices para outbox
+CREATE INDEX idx_outbox_published ON outbox_events(published, occurred_on);
+
+-- Índices para snapshots
+CREATE INDEX idx_snapshots_channel_rack_id ON snapshots(channel_rack_id);
+
+-- Índices para sesiones
 CREATE INDEX idx_sessions_tool_id ON sessions(tool_id);
 CREATE INDEX idx_sessions_user_id ON sessions(user_id);
 CREATE INDEX idx_sessions_status ON sessions(status);
 CREATE INDEX idx_sessions_tool_status ON sessions(tool_id, status);
 CREATE INDEX idx_sessions_created_at ON sessions(created_at DESC);
 
--- Trigger para actualizar updated_at
+-- Índices para sound presets
+CREATE INDEX idx_sound_presets_category ON sound_presets(category);
+
+-- Función para actualizar updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -63,12 +84,6 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
+-- Trigger para actualizar updated_at en sesiones
 CREATE TRIGGER update_sessions_updated_at BEFORE UPDATE ON sessions
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
--- Índices para optimización
-CREATE INDEX IF NOT EXISTS idx_events_aggregate_id ON events(aggregate_id);
-CREATE INDEX IF NOT EXISTS idx_events_aggregate_version ON events(aggregate_id, version);
-CREATE INDEX IF NOT EXISTS idx_events_occurred_on ON events(occurred_on);
-CREATE INDEX IF NOT EXISTS idx_outbox_published ON outbox_events(published, occurred_on);
-CREATE INDEX IF NOT EXISTS idx_snapshots_channel_rack_id ON snapshots(channel_rack_id);
