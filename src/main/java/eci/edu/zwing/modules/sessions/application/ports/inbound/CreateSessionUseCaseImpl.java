@@ -15,12 +15,13 @@ public class CreateSessionUseCaseImpl  implements CreateSessionUseCase {
     SessionRepository sessionRepository;
 
     @Override
-    public void execute(SessionsRequest.CreateSessionRequest createSessionRequest) {
-        sessionRepository.save(Session.create(
-                ToolId.of(createSessionRequest.toolId()),
-                createSessionRequest.userId(),
-                createSessionRequest.metadata()
-                )
-        );
+    public String execute(SessionsRequest.CreateSessionRequest createSessionRequest) {
+        Session session = Session.create(
+            ToolId.of(createSessionRequest.toolId()),
+            createSessionRequest.userId(),
+            createSessionRequest.metadata()
+            );
+        sessionRepository.save(session);
+        return session.getId().value();
     }
 }
