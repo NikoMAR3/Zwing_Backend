@@ -1,5 +1,6 @@
 package eci.edu.zwing;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -9,7 +10,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ZwingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZwingApplication.class, args);
-	}
+        Dotenv dotenv = Dotenv.load();
+        dotenv.entries().forEach(entry ->
+                System.setProperty(entry.getKey(), entry.getValue())
+        );
+
+        SpringApplication.run(ZwingApplication.class, args);
+    }
 
 }
