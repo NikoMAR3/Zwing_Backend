@@ -17,12 +17,8 @@ public class UserIdProvider {
      * Obtiene el userId desde ThreadLocal (Redis/WebSocket) o desde el header HTTP (REST)
      */
     public String getCurrentUserId() {
-        System.out.println("=== UserIdProvider.getCurrentUserId() ===");
-        System.out.println("ThreadLocal value: " + userIdContext.get());
-        System.out.println("Request: " + request);
 
         String userId = userIdContext.get();
-        System.out.println("After ThreadLocal check - userId: " + userId);
 
         if (userId != null && !userId.isEmpty()) {
             System.out.println("Returning from ThreadLocal: " + userId);
