@@ -17,24 +17,32 @@ public class UserIdProvider {
      * Obtiene el userId desde ThreadLocal (Redis/WebSocket) o desde el header HTTP (REST)
      */
     public String getCurrentUserId() {
-        // Primero intenta obtener del ThreadLocal (para Redis/WebSocket)
+        System.out.println("=== UserIdProvider.getCurrentUserId() ===");
+        System.out.println("ThreadLocal value: " + userIdContext.get());
+        System.out.println("Request: " + request);
+
         String userId = userIdContext.get();
+        System.out.println("After ThreadLocal check - userId: " + userId);
+
         if (userId != null && !userId.isEmpty()) {
+            System.out.println("Returning from ThreadLocal: " + userId);
             return userId;
         }
 
-        // Si no está en ThreadLocal, intenta del header HTTP (para REST)
         if (request != null) {
             try {
-                userId = request.getHeader("X-User-Id");
-                if (userId != null && !userId.isEmpty()) {
-                    return userId;
+                String headerUserId = request.getHeader("X-User-Id");
+                System.out.println("Header X-User-Id: " + headerUserId);
+                if (headerUserId != null && !headerUserId.isEmpty()) {
+                    System.out.println("Returning from Header: " + headerUserId);
+                    return headerUserId;
                 }
             } catch (IllegalStateException e) {
-                // En contexto de Redis, HttpServletRequest no está disponible
+                System.out.println("HttpServletRequest not available");
             }
         }
 
+        System.out.println("Throwing exception - no userId found");
         throw new IllegalStateException("User ID not found in request, WebSocket or Redis context");
     }
 

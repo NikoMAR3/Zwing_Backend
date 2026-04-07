@@ -2,9 +2,9 @@ package eci.edu.zwing.modules.channelrack.infraestructure.adapters.inbound;
 
 import eci.edu.zwing.modules.channelrack.application.dtos.queries.ChannelRackQuery;
 import eci.edu.zwing.modules.channelrack.application.mappers.ChannelRackResponse;
-import eci.edu.zwing.modules.channelrack.application.usecases.AddChannelUseCaseImpl;
 import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.ports.inbound.*;
+import eci.edu.zwing.modules.channelrack.infraestructure.adapters.shared.UserIdProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,8 @@ public class ChannelRackController {
     private final AddChannelUseCase addChannelUseCase;
     private final GetChannelsUseCase getChannelsUseCase;
     private CreateChannelRackUseCase createChannelRackUseCase;
+    @Autowired
+    private UserIdProvider userIdProvider;
 
     @Autowired
     public ChannelRackController(
@@ -40,6 +42,8 @@ public class ChannelRackController {
 
     @PostMapping
     public ResponseEntity<?> createChannelRack() {
+        String userId = userIdProvider.getCurrentUserId();
+        System.out.println("UserId from UserIdProvider: " + userId);
         ChannelRack rack = createChannelRackUseCase.execute();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ChannelRackResponse.from(rack));
@@ -56,5 +60,4 @@ public class ChannelRackController {
                 )
         );
     }
-
 }

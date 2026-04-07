@@ -36,13 +36,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        System.out.println("=== JWT FILTER HIT: " + request.getMethod() + " " + request.getRequestURI());
+        System.out.println("=== COOKIES: " + (request.getCookies() != null ? request.getCookies().length : "NONE"));
 
+        if (request.getCookies() != null) {
+            for (Cookie c : request.getCookies()) {
+                System.out.println("=== COOKIE: " + c.getName() + " = " + c.getValue());
+            }
+        }
         String requestUri = request.getRequestURI();
 
-//        if (request.getRequestURI().startsWith("/auth/")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
         if (requestUri.startsWith("/auth/") ||
                 requestUri.startsWith("/ws") ||
                 requestUri.startsWith("/app/")) {
@@ -62,6 +65,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"No token provided\"}");
             return;
         }
 
