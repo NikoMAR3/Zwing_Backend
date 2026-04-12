@@ -38,8 +38,8 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
 
     @Transactional
     public void save(ChannelRack rack, String correlationId) {
-        List<DomainEvent> newEvents = rack.getUncommittedEvents();
 
+        List<DomainEvent> newEvents = rack.getUncommittedEvents();
         String userId = userIdProvider.getCurrentUserId();
 
         long version = rack.getVersion() - newEvents.size();
@@ -48,7 +48,10 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
 
         for (DomainEvent event : newEvents) {
             version++;
-
+            System.out.println("=== SAVE DEBUG ===");
+            System.out.println("rack.getVersion(): " + rack.getVersion());
+            System.out.println("newEvents.size(): " + newEvents.size());
+            System.out.println("version base: " + (rack.getVersion() - newEvents.size()));
             envelopes.add(new EventEnvelope(
                     UUID.randomUUID(),
                     rack.getChannelRackId(),
@@ -85,6 +88,12 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
         ChannelRack rack = snapshot != null
                 ? toChannelRack(snapshot)
                 : new ChannelRack(); //revisar
+        List<EventEnvelope> envelopes = eventStore.loadEnvelopes(channelRackId, fromVersion);
+
+        System.out.println("=== LOAD DEBUG ===");
+        System.out.println("fromVersion: " + fromVersion);
+        System.out.println("envelopes found: " + envelopes.size());
+        envelopes.forEach(e -> System.out.println("  event: " + e.eventType() + " version: " + e.version()));
 
         List<DomainEvent> events = eventStore
                 .loadEnvelopes(channelRackId, fromVersion)
@@ -93,10 +102,11 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
                 .toList();
 
         events.forEach(rack::applyEvent);
-
+        System.out.println("rack.getVersion() after apply: " + rack.getVersion());
         if (events.isEmpty() && snapshot == null) {
             throw new IllegalArgumentException("ChannelRack not found: " + channelRackId);
         }
+
         return rack;
     }
 

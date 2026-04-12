@@ -39,7 +39,10 @@ public class RackEventRedisListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-
+        System.out.println("=== RAW MESSAGE DEBUG ===");
+        System.out.println("Body:    " + new String(message.getBody()));
+        System.out.println("Channel: " + new String(message.getChannel()));
+        System.out.println("Pattern: " + (pattern != null ? new String(pattern) : "null"));
         String payload = new String(message.getBody());
         Map<String, Object> eventData;
 
@@ -50,10 +53,8 @@ public class RackEventRedisListener implements MessageListener {
         }
 
         String correlationId = (String) eventData.get("correlationId");
-        String action = (String) eventData.get("eventType");
-        Map<String, Object> data = (Map<String, Object>) eventData.get("payload");
 
-        sessionBroadcaster.broadcast(correlationId, action, data);
+        sessionBroadcaster.broadcast(new BroadcastInfo(correlationId,eventData));
     }
 
 }

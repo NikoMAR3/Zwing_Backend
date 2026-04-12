@@ -1,5 +1,6 @@
 package eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.eventbus;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eci.edu.zwing.modules.channelrack.domain.model.DomainEvent;
 
 import java.time.Instant;
@@ -11,6 +12,7 @@ public record EventEnvelope(
         String rackId,
         long version,
         String eventType,
+        @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
         DomainEvent payload,
         String userId,
         String correlationId,

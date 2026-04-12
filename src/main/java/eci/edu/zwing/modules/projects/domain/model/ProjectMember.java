@@ -14,11 +14,24 @@ public class ProjectMember {
         return new ProjectMember(userId,ProjectRole.VIEWER);
     }
 
+    public static ProjectMember createNormalMember(String userId){
+        return new ProjectMember(userId,ProjectRole.EDITOR);
+    }
+
+    public static ProjectMember createOwnerMember(String userId){
+        return new ProjectMember(userId,ProjectRole.AUTHOR);
+    }
+
 
     public String getUserId() {
         return userId;
     }
 
+    public ProjectRole getRole() {
+        return role;
+    }
 
-
+    public void setRole(ProjectRole role) {
+        this.role = role;
+    }
 }

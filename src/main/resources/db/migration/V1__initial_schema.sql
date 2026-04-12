@@ -45,6 +45,7 @@ CREATE TABLE outbox_events (
     aggregate_id VARCHAR(255) NOT NULL,
     event_type VARCHAR(255) NOT NULL,
     payload JSONB NOT NULL,
+    correlation_id VARCHAR(255),
     published BOOLEAN DEFAULT false,
     occurred_on TIMESTAMP NOT NULL,
     published_at TIMESTAMP,

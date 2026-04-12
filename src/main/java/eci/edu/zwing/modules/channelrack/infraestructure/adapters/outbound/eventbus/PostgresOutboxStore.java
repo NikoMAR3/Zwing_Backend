@@ -27,11 +27,12 @@ public class PostgresOutboxStore implements OutboxStore {
     public void append(List<EventEnvelope> envelopes) {
         for (EventEnvelope envelope : envelopes) {
             jdbc.update("""
-                INSERT INTO outbox_events (id, aggregate_id, event_type, payload, published, occurred_on)
-                VALUES (?, ?, ?, ?::jsonb, false, ?)
-                """,
+            INSERT INTO outbox_events (id, aggregate_id, correlation_id, event_type, payload, published, occurred_on)
+            VALUES (?, ?, ?, ?, ?::jsonb, false, ?)
+            """,
                     envelope.eventId(),
                     envelope.rackId(),
+                    envelope.correlationId(),
                     envelope.eventType(),
                     mapper.writeValueAsString(envelope),
                     envelope.occurredOn()
@@ -42,17 +43,18 @@ public class PostgresOutboxStore implements OutboxStore {
     @Override
     public List<OutboxEntry> findUnpublished(int limit) {
         return jdbc.query("""
-            SELECT id, aggregate_id, event_type, payload, published, occurred_on, published_at
-            FROM outbox_events
-            WHERE published = false
-            ORDER BY occurred_on ASC
-            LIMIT ?
-            """,
+        SELECT id, aggregate_id, correlation_id, event_type, payload, published, occurred_on, published_at
+        FROM outbox_events
+        WHERE published = false
+        ORDER BY occurred_on ASC
+        LIMIT ?
+        """,
                 (rs, rowNum) -> new OutboxEntry(
                         UUID.fromString(rs.getString("id")),
                         rs.getString("aggregate_id"),
                         rs.getString("event_type"),
                         rs.getString("payload"),
+                        rs.getString("correlation_id"),
                         rs.getBoolean("published"),
                         rs.getTimestamp("occurred_on").toInstant(),
                         rs.getTimestamp("published_at") != null

@@ -26,7 +26,7 @@ public class OutboxRelay {
 
         for (OutboxEntry entry : pending) {
             redis.convertAndSend(
-                    "channelrack." + entry.aggregateId(),  // canal por agregado
+                    "channelrack." + entry.correlationId(),  // canal por agregado
                     entry.payload()
             );
             outboxStore.markPublished(entry.id());

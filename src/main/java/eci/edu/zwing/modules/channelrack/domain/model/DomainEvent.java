@@ -17,9 +17,6 @@ public sealed interface DomainEvent {
 
     void applyTo(EventSourcing aggregate);
 
-//    String channelRackId();
-//    String channelId();
-
     record ChannelAdded(String channelRackId, String channelId, String name, String sampleId, float volume, boolean mute) implements DomainEvent {
         @Override public void applyTo(EventSourcing aggregate) {aggregate.apply(this);}
     }

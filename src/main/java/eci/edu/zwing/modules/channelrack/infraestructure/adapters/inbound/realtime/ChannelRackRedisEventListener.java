@@ -57,7 +57,7 @@ public class ChannelRackRedisEventListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-
+        System.out.print("llego algo");
         String payload = new String(message.getBody());
         Map<String, Object> eventData;
 

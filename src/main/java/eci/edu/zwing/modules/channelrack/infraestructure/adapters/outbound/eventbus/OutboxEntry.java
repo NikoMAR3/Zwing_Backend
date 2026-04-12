@@ -7,7 +7,8 @@ public record OutboxEntry(
         UUID id,
         String aggregateId,
         String eventType,
-        String payload,      // JSON serializado
+        String payload,
+        String correlationId,// JSON serializado
         boolean published,
         Instant occurredOn,
         Instant publishedAt  // null hasta que se publique

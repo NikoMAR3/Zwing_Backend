@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EventSourcing {
-    protected Long version = 0L;
+    protected Long version;
     protected List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
     public Long getVersion() {
@@ -23,7 +23,6 @@ public abstract class EventSourcing {
 
     public void applyEvent(DomainEvent event) {
         event.applyTo(this);
-        version++;
     }
 
     abstract void apply(DomainEvent.ChannelAdded event);

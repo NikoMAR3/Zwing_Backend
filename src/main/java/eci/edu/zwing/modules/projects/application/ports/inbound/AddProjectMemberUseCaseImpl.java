@@ -24,10 +24,8 @@ public class AddProjectMemberUseCaseImpl implements AddProjectMemberUseCase {
     public void execute(CommandDTOs.AddProjectMemberCommandDTO dto) {
         if((userQueryInPort.getUserById(UUID.fromString(dto.userId())).isPresent())){
             Project project = projectRepository.getProject(dto.projectId());
-
-            projectRepository.save(project.addProjectMember(
-                    ProjectMember.createMinimumMember(dto.userId())
-            ));
+            project.addProjectMember(ProjectMember.createMinimumMember(dto.userId()));
+            projectRepository.save(project);
         }
     }
 }

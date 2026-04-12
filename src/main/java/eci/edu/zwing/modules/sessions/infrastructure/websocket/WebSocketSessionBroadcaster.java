@@ -2,6 +2,7 @@ package eci.edu.zwing.modules.sessions.infrastructure.websocket;
 
 
 import eci.edu.zwing.modules.sessions.application.ports.outbound.SessionBroadcaster;
+import eci.edu.zwing.modules.sessions.infrastructure.ports.redis.BroadcastInfo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,16 +18,10 @@ public class WebSocketSessionBroadcaster implements SessionBroadcaster {
     }
 
     @Override
-    public void broadcast(String correlationId, String action, Map<String, Object> data) {
-
-        Map<String, Object> payload = Map.of(
-                "action", action,
-                "data", data
-        );
-
+    public void broadcast(BroadcastInfo info) {
         messagingTemplate.convertAndSend(
-                "/topic/session/" + correlationId,
-                (Object) payload
+                "/topic/sessions/" + info.correlationId(),
+                (Object) info.envelope()
         );
     }
 }
