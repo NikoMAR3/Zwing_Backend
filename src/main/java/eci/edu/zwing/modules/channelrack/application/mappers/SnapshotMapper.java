@@ -5,7 +5,9 @@ import eci.edu.zwing.modules.channelrack.domain.model.ChannelRack;
 import eci.edu.zwing.modules.channelrack.domain.model.Step;
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.outbound.snapshots.Snapshot;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SnapshotMapper {
 
@@ -17,7 +19,7 @@ public class SnapshotMapper {
                 snapshot.channelRackId(),
                 snapshot.channels().stream()
                         .map(SnapshotMapper::channelSnapshotToEntity)
-                        .toList(),
+                        .collect(Collectors.toCollection(ArrayList::new)),
                 snapshot.version()
         );
     }

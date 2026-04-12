@@ -5,6 +5,7 @@ import eci.edu.zwing.modules.channelrack.domain.ports.outbound.SnapshotStore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.postgresql.util.PGobject;
 
 import java.util.Optional;
 
@@ -36,13 +37,16 @@ public class PostgreSQLSnapshotStore implements SnapshotStore {
 
         try {
             String snapshotJson = mapper.writeValueAsString(crSnapshot);
+            PGobject jsonb = new PGobject();
+            jsonb.setType("jsonb");
+            jsonb.setValue(snapshotJson);
 
             jdbc.update(sql,
                     crSnapshot.channelRackId(),
                     crSnapshot.version(),
-                    snapshotJson,
+                    jsonb,
                     crSnapshot.version(),
-                    snapshotJson
+                    jsonb
             );
         } catch (Exception e) {
             throw new RuntimeException("Error saving snapshot for: " +

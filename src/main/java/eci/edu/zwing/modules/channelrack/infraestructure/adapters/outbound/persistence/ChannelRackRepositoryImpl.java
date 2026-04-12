@@ -84,7 +84,7 @@ public class ChannelRackRepositoryImpl implements ChannelRackRepository {
     public ChannelRack load(String channelRackId) {
         Snapshot.ChannelRackSnapshot snapshot = snapshotStore.findLatest(channelRackId).orElse(null);
 
-        Long fromVersion = snapshot != null ? snapshot.version() : 0;
+        Long fromVersion = snapshot != null ? snapshot.version() + 1: 0;
         ChannelRack rack = snapshot != null
                 ? toChannelRack(snapshot)
                 : new ChannelRack(); //revisar
