@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.infrastructure.websocket.config;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.inbound.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

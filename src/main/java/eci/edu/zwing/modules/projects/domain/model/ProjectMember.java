@@ -1,5 +1,9 @@
 package eci.edu.zwing.modules.projects.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 public class ProjectMember {
 
     private final String userId;

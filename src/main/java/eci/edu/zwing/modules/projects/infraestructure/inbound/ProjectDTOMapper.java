@@ -15,31 +15,29 @@ public class ProjectDTOMapper {
             String projectId,
             ProjectRequestDTOs.AddMemberRequest request) {
 
-        ProjectRole role = parseProjectRole(request.role());
-        return new CommandDTOs.AddProjectMemberCommandDTO(projectId, request.userId(), role);
+        return new CommandDTOs.AddProjectMemberCommandDTO(projectId, request.userId(), request.role());
     }
 
     /**
      * Convierte SetMemberRoleRequest a SetProjectMemberRoleUseCaseDTO
      */
+
     public static CommandDTOs.SetProjectMemberRoleUseCaseDTO mapToSetProjectMemberRole(
             String projectId,
             String userId,
             ProjectRequestDTOs.SetMemberRoleRequest request) {
 
-        ProjectRole role = parseProjectRole(request.role());
-        return new CommandDTOs.SetProjectMemberRoleUseCaseDTO(projectId, userId, role);
+        return new CommandDTOs.SetProjectMemberRoleUseCaseDTO(projectId, userId, request.role());
     }
 
     /**
-     * Convierte AddSnapshotRequest a AddSnapshotRefUseCaseDTO
+     * Convierte AddSnapshotRequest a AddToolRefUseCaseDTO
      */
-    public static CommandDTOs.AddSnapshotRefUseCaseDTO mapToAddSnapshotRef(
+    public static CommandDTOs.AddToolRefUseCaseDTO mapToAddSnapshotRef(
             String projectId,
             ProjectRequestDTOs.AddSnapshotRequest request) {
 
-        WorkplaceType type = parseWorkplaceType(request.type());
-        return new CommandDTOs.AddSnapshotRefUseCaseDTO(projectId, request.toolRefId(), type);
+        return new CommandDTOs.AddToolRefUseCaseDTO(projectId, request.toolRefId(), request.type());
     }
 
     /**

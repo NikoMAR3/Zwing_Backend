@@ -22,7 +22,7 @@ public class ProjectController {
     private final AddProjectMemberUseCase addProjectMemberUseCase;
     private final RemoveProjectMemberUseCase removeProjectMemberUseCase;
     private final SetProjectMemberRoleUseCase setProjectMemberRoleUseCase;
-    private final AddSnapshotRefUseCase addSnapshotRefUseCase;
+    private final AddToolRefUseCase addToolRefUseCase;
     private final GetProjectUseCase getProjectUseCase;
     private final GetAllProjectsOfUserUseCase getAllProjectsOfUserUseCase;
     private final RemoveProjectUseCase removeProjectUseCase;
@@ -33,7 +33,7 @@ public class ProjectController {
             AddProjectMemberUseCase addProjectMemberUseCase,
             RemoveProjectMemberUseCase removeProjectMemberUseCase,
             SetProjectMemberRoleUseCase setProjectMemberRoleUseCase,
-            AddSnapshotRefUseCase addSnapshotRefUseCase,
+            AddToolRefUseCase addToolRefUseCase,
             GetProjectUseCase getProjectUseCase,
             GetAllProjectsOfUserUseCase getAllProjectsOfUserUseCase,
             RemoveProjectUseCase removeProjectUseCase) {
@@ -41,7 +41,7 @@ public class ProjectController {
         this.addProjectMemberUseCase = addProjectMemberUseCase;
         this.removeProjectMemberUseCase = removeProjectMemberUseCase;
         this.setProjectMemberRoleUseCase = setProjectMemberRoleUseCase;
-        this.addSnapshotRefUseCase = addSnapshotRefUseCase;
+        this.addToolRefUseCase = addToolRefUseCase;
         this.getProjectUseCase = getProjectUseCase;
         this.getAllProjectsOfUserUseCase = getAllProjectsOfUserUseCase;
         this.removeProjectUseCase = removeProjectUseCase;
@@ -100,7 +100,7 @@ public class ProjectController {
     public ResponseEntity<Void> addSnapshot(
             @PathVariable String projectId,
             @RequestBody ProjectRequestDTOs.AddSnapshotRequest req) {
-        addSnapshotRefUseCase.execute(ProjectDTOMapper.mapToAddSnapshotRef(projectId, req));
+        addToolRefUseCase.execute(ProjectDTOMapper.mapToAddSnapshotRef(projectId, req));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

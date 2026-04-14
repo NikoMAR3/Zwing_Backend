@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.auth;
+package eci.edu.zwing.modules.auth.infraestructure.events;
 
 import lombok.Getter;
 

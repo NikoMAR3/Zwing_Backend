@@ -10,13 +10,13 @@ public sealed interface CommandDTOs {
 
     record RemoveProjectCommandDTO(String projectId) implements CommandDTOs{}
 
-    record AddProjectMemberCommandDTO(String projectId, String userId, ProjectRole role)implements CommandDTOs {}
+    record AddProjectMemberCommandDTO(String projectId, String userId, String role)implements CommandDTOs {}
 
     record RemoveProjectMemberCommandDTO(String projectId, String userId) implements CommandDTOs{}
 
-    record SetProjectMemberRoleUseCaseDTO(String projectId, String userId, ProjectRole role) implements CommandDTOs{}
+    record SetProjectMemberRoleUseCaseDTO(String projectId, String userId, String role) implements CommandDTOs{}
 
-    record AddSnapshotRefUseCaseDTO(String projectId, String toolRefId, WorkplaceType type) implements CommandDTOs{}
+    record AddToolRefUseCaseDTO(String projectId, String toolRefId, String type) implements CommandDTOs{}
 
     record CreateProjectCommandDTO(String name, String ownerId) {}
 

@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.infrastructure.websocket.config;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.inbound.config;
 
 import eci.edu.zwing.modules.channelrack.infraestructure.adapters.shared.UserIdProvider;
 import io.jsonwebtoken.Claims;

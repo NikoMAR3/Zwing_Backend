@@ -1,6 +1,5 @@
 package eci.edu.zwing.modules.auth.infraestructure.events;
 
-import eci.edu.zwing.modules.auth.UserDeletedEvent;
 import eci.edu.zwing.modules.auth.infraestructure.security.config.TokenBlacklistService;
 import lombok.AllArgsConstructor;
 

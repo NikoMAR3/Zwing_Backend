@@ -1,7 +1,7 @@
 package eci.edu.zwing.modules.projects.application.ports.inbound;
 
 import eci.edu.zwing.modules.projects.application.ports.dtos.CommandDTOs;
-import eci.edu.zwing.modules.projects.application.ports.outbound.UserQueryInPort;
+import eci.edu.zwing.modules.projects.application.ports.outbound.UserQuery;
 import eci.edu.zwing.modules.projects.domain.model.Project;
 import eci.edu.zwing.modules.projects.domain.model.ProjectMember;
 import eci.edu.zwing.modules.projects.domain.ports.inbound.AddProjectMemberUseCase;
@@ -15,14 +15,14 @@ import java.util.UUID;
 public class AddProjectMemberUseCaseImpl implements AddProjectMemberUseCase {
 
     @Autowired
-    private UserQueryInPort userQueryInPort;
+    private UserQuery userQuery;
 
     @Autowired
     private ProjectRepository projectRepository;
 
     @Override
     public void execute(CommandDTOs.AddProjectMemberCommandDTO dto) {
-        if((userQueryInPort.getUserById(UUID.fromString(dto.userId())).isPresent())){
+        if((userQuery.getUserById(UUID.fromString(dto.userId())).isPresent())){
             Project project = projectRepository.getProject(dto.projectId());
             project.addProjectMember(ProjectMember.createMinimumMember(dto.userId()));
             projectRepository.save(project);

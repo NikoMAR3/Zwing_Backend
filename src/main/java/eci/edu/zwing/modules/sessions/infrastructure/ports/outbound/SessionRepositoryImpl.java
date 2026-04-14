@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.infrastructure.ports;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.outbound;
 
 import eci.edu.zwing.modules.sessions.domain.*;
 import eci.edu.zwing.modules.sessions.domain.ports.outbound.SessionRepository;

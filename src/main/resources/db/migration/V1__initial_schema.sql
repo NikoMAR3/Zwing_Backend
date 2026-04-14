@@ -82,6 +82,27 @@ CREATE TABLE sound_presets (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tablitas para projects
+
+CREATE TABLE projects (
+    id        VARCHAR PRIMARY KEY,
+    name      VARCHAR NOT NULL,
+    owner_id  VARCHAR NOT NULL
+);
+
+CREATE TABLE project_members (
+    id         SERIAL PRIMARY KEY,
+    user_id    VARCHAR NOT NULL,
+    role       VARCHAR NOT NULL,
+    project_id VARCHAR NOT NULL REFERENCES projects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tool_refs (
+    tool_id    VARCHAR NOT NULL,
+    project_id VARCHAR NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+    PRIMARY KEY (tool_id, project_id)
+);
+
 -- Índices para eventos
 CREATE INDEX idx_events_aggregate_id ON events(aggregate_id);
 CREATE INDEX idx_events_aggregate_version ON events(aggregate_id, version);

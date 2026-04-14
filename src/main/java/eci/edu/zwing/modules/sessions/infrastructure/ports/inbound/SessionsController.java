@@ -1,9 +1,7 @@
-package eci.edu.zwing.modules.sessions.infrastructure.ports;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.inbound;
 
 import eci.edu.zwing.modules.sessions.domain.ports.inbound.CreateSessionUseCase;
-import eci.edu.zwing.modules.sessions.domain.ports.inbound.RecordSessionActivityUseCase;
 import eci.edu.zwing.modules.sessions.infrastructure.dtos.SessionsRequest;
-import eci.edu.zwing.modules.sessions.infrastructure.dtos.SessionsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

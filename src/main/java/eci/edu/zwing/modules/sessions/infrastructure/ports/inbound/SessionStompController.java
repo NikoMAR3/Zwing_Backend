@@ -1,7 +1,7 @@
-package eci.edu.zwing.modules.sessions.infrastructure.websocket;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.inbound;
 
 import eci.edu.zwing.modules.sessions.application.ports.outbound.RealtimeCommandDispatcher;
-import eci.edu.zwing.modules.sessions.infrastructure.realtime.RealtimeCommand;
+import eci.edu.zwing.modules.sessions.infrastructure.ports.inbound.realtime.RealtimeCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;

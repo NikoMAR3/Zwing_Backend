@@ -1,7 +1,7 @@
 package eci.edu.zwing.modules.auth.application.service;
 
 
-import eci.edu.zwing.modules.auth.UserDeletedEvent;
+import eci.edu.zwing.modules.auth.infraestructure.events.UserDeletedEvent;
 import eci.edu.zwing.modules.auth.application.port.in.AuthenticateWithGoogleUseCase;
 import eci.edu.zwing.modules.auth.application.port.in.LogoutUseCase;
 import eci.edu.zwing.modules.auth.application.port.in.UserDeleteCase;
@@ -18,8 +18,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 

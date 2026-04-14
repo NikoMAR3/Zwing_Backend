@@ -1,12 +1,10 @@
-package eci.edu.zwing.modules.sessions.infrastructure.websocket;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.outbound;
 
 
 import eci.edu.zwing.modules.sessions.application.ports.outbound.SessionBroadcaster;
 import eci.edu.zwing.modules.sessions.infrastructure.ports.redis.BroadcastInfo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class WebSocketSessionBroadcaster implements SessionBroadcaster {

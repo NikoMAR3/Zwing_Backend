@@ -1,4 +1,4 @@
-package eci.edu.zwing.modules.sessions.infrastructure.realtime;
+package eci.edu.zwing.modules.sessions.infrastructure.ports.inbound.realtime;
 
 import eci.edu.zwing.modules.sessions.domain.RealtimeEvent;
 import eci.edu.zwing.modules.sessions.application.ports.outbound.RealtimeEventPublisher;
